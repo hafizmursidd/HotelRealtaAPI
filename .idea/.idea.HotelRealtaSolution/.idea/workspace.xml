@@ -7,29 +7,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d577d8af-c47a-4cd0-827f-03c663000ce2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HotelRealtaSolution/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HotelRealtaSolution/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.Contract/Models/VendorProductDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Contract/Models/VendorProductDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.Contract/Realta.Contract.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Contract/Realta.Contract.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.Domain/Entities/VendorProduct.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Domain/Entities/VendorProduct.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.Domain/Realta.Domain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Domain/Realta.Domain.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.Domain/Repositories/IVendorProductRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Domain/Repositories/IVendorProductRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.Domain/Repositories/IVendorRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Domain/Repositories/IVendorRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.Domain/RequestFeatures/VendorParameters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Domain/RequestFeatures/VendorParameters.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.Persistence/Base/RepositoryBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Persistence/Base/RepositoryBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.Persistence/Repositories/RepositoryExtensions/RepositoryVendorExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Persistence/Repositories/RepositoryExtensions/RepositoryVendorExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.Persistence/Repositories/VendorProductRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Persistence/Repositories/VendorProductRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Realta.Persistence/Repositories/VendorRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Persistence/Repositories/VendorRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.WebAPI/Controllers/VendorController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.WebAPI/Controllers/VendorController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.WebAPI/Controllers/VendorProductController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.WebAPI/Controllers/VendorProductController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="mock://D:/Bootcamp 18/newAPI/HotelRealtaAPI/Realta.Contract/Models/PurchaseOrderDto.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Bootcamp 18/newAPI/HotelRealtaAPI/Realta.WebAPI/Controllers/PurchaseOrderController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Bootcamp 18/newAPI/HotelRealtaAPI/Realta.WebAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -58,9 +41,9 @@
       &quot;sqlserver&quot;
     ],
     &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\User\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\User\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\User\\AppData\\Local\\Symbols\\src&quot;
+      &quot;C:\\Users\\hafiz\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\hafiz\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\hafiz\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
 }</component>
@@ -112,6 +95,8 @@
       <workItem from="1678643503728" duration="294000" />
       <workItem from="1678644915146" duration="3300000" />
       <workItem from="1678910063909" duration="143000" />
+      <workItem from="1678910795466" duration="1191000" />
+      <workItem from="1678914419133" duration="3498000" />
     </task>
     <task id="LOCAL-00001" summary="fix typo on git ignore&#10;Realta.Services.Abstraction/bin&#10;Realta.Services.Abstraction/obj">
       <created>1678731843362</created>
@@ -127,7 +112,21 @@
       <option name="project" value="LOCAL" />
       <updated>1678732943410</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add VenproParameters.cs dan repositoryvenproExtension">
+      <created>1678910993553</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1678910993553</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Vendor to main">
+      <created>1678911026250</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1678911026250</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +139,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="fix typo on git ignore&#10;Realta.Services.Abstraction/bin&#10;Realta.Services.Abstraction/obj" />
     <MESSAGE value="merge vendor to po" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge vendor to po" />
+    <MESSAGE value="add VenproParameters.cs dan repositoryvenproExtension" />
+    <MESSAGE value="Vendor to main" />
+    <option name="LAST_COMMIT_MESSAGE" value="Vendor to main" />
   </component>
 </project>

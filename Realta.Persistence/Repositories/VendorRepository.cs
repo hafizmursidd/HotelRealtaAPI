@@ -173,8 +173,6 @@ namespace Realta.Persistence.Repositories
                 }
             };
             var  dataSet = await GetAllAsync<Vendor>(model);
-            //var aa = dataSet.FirstOrDefault().VendorName;
-            //var ab = dataSet.FirstOrDefault().VendorEntityId;
 
             var vendorSearch = dataSet.AsQueryable()
                 .Search(vendorParameters.Keyword)
