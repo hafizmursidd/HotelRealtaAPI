@@ -29,7 +29,7 @@ namespace Realta.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
-            var products = await _repositoryManager.VendorProductRepository.FindAllVendorProductAsync();
+            var products = await _repositoryManager.VendorProductRepository.FindAllVendorProductAsync();    
             return Ok(products.ToList());
         }
 
@@ -51,18 +51,10 @@ namespace Realta.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVenproPaging([FromQuery] VenproParameters venproParameters, int id)
         {
-            //try
-            //{
                var venpro = _repositoryManager.VendorProductRepository.GetVenpro(venproParameters, id);
                PagedList<VendorProduct> pagedList = await venpro;
                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));
                return Ok(pagedList);
-          //  }
-            //catch
-            //{
-
-            //    return BadRequest("Object Not Found");
-            //}
         }
         //public async Task<IActionResult> FindById(int id)
         //{

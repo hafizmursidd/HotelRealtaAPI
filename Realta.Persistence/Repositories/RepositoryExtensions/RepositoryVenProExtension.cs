@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Dynamic.Core;
 
 namespace Realta.Persistence.Repositories.RepositoryExtensions
 {
@@ -20,11 +21,11 @@ namespace Realta.Persistence.Repositories.RepositoryExtensions
             return vendors.Where(p => p.StockName.ToLower().Contains(lowerCaseSearchTerm));
         }
 
-        //variabel belum disesuaikan
-        public static IQueryable<Vendor> Sortt(this IQueryable<Vendor> vendors, string orderByQueryString)
+   
+        public static IQueryable<VendorProduct> Sort(this IQueryable<VendorProduct> venpro, string orderByQueryString)
         {
             if (string.IsNullOrWhiteSpace(orderByQueryString))
-                return vendors.OrderBy(e => e.VendorName);
+                return venpro.OrderBy(e => e.StockName);
 
             var orderParams = orderByQueryString.Trim().Split(',');
             var propertyInfos = typeof(Vendor).GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -47,9 +48,9 @@ namespace Realta.Persistence.Repositories.RepositoryExtensions
 
             var orderQuery = orderQueryBuilder.ToString().TrimEnd(',', ' ');
             if (string.IsNullOrWhiteSpace(orderQuery))
-                return vendors.OrderBy(e => e.VendorName);
+                return venpro.OrderBy(e => e.StockName);
 
-            return vendors.OrderBy(e => e.VendorName);
+            return venpro.OrderBy(e => e.StockName);
         }
 
     }

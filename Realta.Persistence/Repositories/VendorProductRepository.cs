@@ -356,13 +356,17 @@ namespace Realta.Persistence.Repositories
 
             //  var dataset = FindAllAsync<VendorProduct>(model);
             var dataSet = FindByCondition<VendorProduct>(model);
-           // dataSet.
             var item = new List<VendorProduct>();
             while (dataSet.MoveNext())
             {
                 item.Add(dataSet.Current);
             }
-            return PagedList<VendorProduct>.ToPagedList(item.ToList(),
+
+            var venproSearch = item.AsQueryable()
+                               .Search(vendorProParameters.Keyword)
+                               .Sort(vendorProParameters.OrderBy);
+
+            return PagedList<VendorProduct>.ToPagedList(venproSearch.ToList(),
                                                         vendorProParameters.PageNumber,
                                                         vendorProParameters.PageSize);
 
