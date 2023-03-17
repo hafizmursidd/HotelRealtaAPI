@@ -1,30 +1,31 @@
-﻿using System;
+﻿using Realta.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
-using System.Reflection;
-using Realta.Domain.Entities;
 
 namespace Realta.Persistence.Repositories.RepositoryExtensions
 {
-    public static class RepositoryVendorExtensions
+    public static class RepositoryVenProExtension
     {
-        public static IQueryable<Vendor> Search(this IQueryable<Vendor> vendors, string Keyword)
+        public static IQueryable<VendorProduct> Search(this IQueryable<VendorProduct> vendors, string Keyword)
         {
             if (string.IsNullOrWhiteSpace(Keyword))
                 return vendors;
 
             var lowerCaseSearchTerm = Keyword.Trim().ToLower();
 
-            return vendors.Where(p => p.VendorName.ToLower().Contains(lowerCaseSearchTerm));
+            return vendors.Where(p => p.StockName.ToLower().Contains(lowerCaseSearchTerm));
         }
 
-        public static IQueryable<Vendor> Sort(this IQueryable<Vendor> vendors, string orderByQueryString)
+        //variabel belum disesuaikan
+        public static IQueryable<VendorProduct> Sort(this IQueryable<VendorProduct> venpro, string orderByQueryString)
         {
             if (string.IsNullOrWhiteSpace(orderByQueryString))
-                return vendors.OrderBy(e => e.VendorName);
+                return venpro.OrderBy(e => e.StockName);
 
             var orderParams = orderByQueryString.Trim().Split(',');
             var propertyInfos = typeof(Vendor).GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -47,9 +48,10 @@ namespace Realta.Persistence.Repositories.RepositoryExtensions
 
             var orderQuery = orderQueryBuilder.ToString().TrimEnd(',', ' ');
             if (string.IsNullOrWhiteSpace(orderQuery))
-                return vendors.OrderBy(e => e.VendorName);
+                return venpro.OrderBy(e => e.StockName);
 
-            return vendors.OrderBy(orderQuery);
+            return venpro.OrderBy(e => e.StockName);
         }
+
     }
 }
