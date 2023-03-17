@@ -338,8 +338,7 @@ namespace Realta.Persistence.Repositories
                               ON s.stock_id = venpro.venpro_stock_id 
                               JOIN Purchasing.vendor as ven 
                               ON venpro.vepro_vendor_id = ven.vendor_entity_id 
-                              WHERE ven.vendor_entity_id = @Id
-                              Order by venpro.venpro_stock_id; ";
+                              WHERE ven.vendor_entity_id = @Id";
 
             SqlCommandModel model = new SqlCommandModel()
             {
@@ -354,15 +353,8 @@ namespace Realta.Persistence.Repositories
                 }
             };
 
-            //  var dataset = FindAllAsync<VendorProduct>(model);
-            var dataSet = FindByCondition<VendorProduct>(model);
-            var item = new List<VendorProduct>();
-            while (dataSet.MoveNext())
-            {
-                item.Add(dataSet.Current);
-            }
-
-            var venproSearch = item.AsQueryable()
+            var dataset = await GetAllAsync<VendorProduct>(model);
+            var venproSearch = dataset.AsQueryable()
                                .Search(vendorProParameters.Keyword)
                                .Sort(vendorProParameters.OrderBy);
 

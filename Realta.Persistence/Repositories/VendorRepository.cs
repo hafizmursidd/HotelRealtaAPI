@@ -152,7 +152,7 @@ namespace Realta.Persistence.Repositories
         
     }
 
-        public async Task<PagedList<Vendor>> GetVendorPaging(VendorParameters vendorParameters)
+        public async Task<PagedList<Vendor>> GetVendorPaging(VendorParameters vendorParameters )
         {
 
             SqlCommandModel model = new SqlCommandModel()

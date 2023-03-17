@@ -45,6 +45,7 @@ namespace Realta.Persistence.Repositories.RepositoryExtensions
             if (string.IsNullOrWhiteSpace(orderQuery))
                 return vendors.OrderBy(e => e.VendorName);
 
+            var xax = vendors.OrderBy(orderQuery);
             return vendors.OrderBy(orderQuery);
         }
     }

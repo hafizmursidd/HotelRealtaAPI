@@ -5,13 +5,20 @@
     <projectFile profileName="Realta.WebAPI">Realta.WebAPI/Realta.WebAPI.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d577d8af-c47a-4cd0-827f-03c663000ce2" name="Changes" comment="">
+    <list default="true" id="1c15dc65-c02b-4e27-8297-43f221940ddd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HotelRealtaSolution/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HotelRealtaSolution/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Realta.Persistence/Repositories/RepositoryExtensions/RepositoryVenProExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Persistence/Repositories/RepositoryExtensions/RepositoryVenProExtension.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/575c31ecc35a636b6f962cb71d53992552941a18982aae1c8e6c16305cc3761b/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Bootcamp 18/newAPI/HotelRealtaAPI/Realta.Persistence/Repositories/RepositoryExtensions/RepositoryVenProExtension.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Bootcamp 18/newAPI/HotelRealtaAPI/Realta.Persistence/Repositories/VendorProductRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Bootcamp 18/newAPI/HotelRealtaAPI/Realta.WebAPI/Controllers/VendorProductController.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -25,27 +32,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "XThreadsFramesViewSplitterKey": "0.8214286",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CodeLensConfigurable",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlserver&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlserver"
     ],
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\hafiz\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\hafiz\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\hafiz\\AppData\\Local\\Symbols\\src&quot;
+    "rider.external.source.directories": [
+      "C:\\Users\\hafiz\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\hafiz\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\hafiz\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Realta.WebAPI">
     <configuration name="Realta.WebAPI" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Realta.WebAPI/Realta.WebAPI.csproj" />
@@ -133,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678958706114</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="from another base">
+      <created>1679022496469</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1679022496469</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,6 +164,95 @@
     <MESSAGE value="add VenproParameters.cs dan repositoryvenproExtension" />
     <MESSAGE value="Vendor to main" />
     <MESSAGE value="Merger Vendor to Main" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merger Vendor to Main" />
+    <MESSAGE value="from another base" />
+    <option name="LAST_COMMIT_MESSAGE" value="from another base" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Realta.Persistence/Repositories/VendorProductRepository.cs</url>
+          <line>364</line>
+          <properties documentPath="D:\Bootcamp 18\newAPI\HotelRealtaAPI\Realta.Persistence\Repositories\VendorProductRepository.cs" initialLine="364" containingFunctionPresentation="method 'GetVenpro'">
+            <startOffsets>
+              <option value="15749" />
+            </startOffsets>
+            <endOffsets>
+              <option value="15921" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Realta.Persistence/Repositories/VendorProductRepository.cs</url>
+          <line>368</line>
+          <properties documentPath="D:\Bootcamp 18\newAPI\HotelRealtaAPI\Realta.Persistence\Repositories\VendorProductRepository.cs" initialLine="368" containingFunctionPresentation="method 'GetVenpro'">
+            <startOffsets>
+              <option value="15935" />
+            </startOffsets>
+            <endOffsets>
+              <option value="16176" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Realta.Domain/RequestFeatures/VenproParameters.cs</url>
+          <line>11</line>
+          <properties documentPath="D:\Bootcamp 18\newAPI\HotelRealtaAPI\Realta.Domain\RequestFeatures\VenproParameters.cs" initialLine="11" containingFunctionPresentation="property 'OrderBy'">
+            <startOffsets>
+              <option value="296" />
+              <option value="301" />
+            </startOffsets>
+            <endOffsets>
+              <option value="300" />
+              <option value="305" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Realta.Domain/RequestFeatures/VenproParameters.cs</url>
+          <line>10</line>
+          <properties documentPath="D:\Bootcamp 18\newAPI\HotelRealtaAPI\Realta.Domain\RequestFeatures\VenproParameters.cs" initialLine="10" containingFunctionPresentation="property 'Keyword'">
+            <startOffsets>
+              <option value="252" />
+              <option value="257" />
+            </startOffsets>
+            <endOffsets>
+              <option value="256" />
+              <option value="261" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Realta.Persistence/Repositories/RepositoryExtensions/RepositoryVenProExtension.cs</url>
+          <line>25</line>
+          <properties documentPath="D:\Bootcamp 18\newAPI\HotelRealtaAPI\Realta.Persistence\Repositories\RepositoryExtensions\RepositoryVenProExtension.cs" initialLine="25" containingFunctionPresentation="method 'Sort'">
+            <startOffsets>
+              <option value="827" />
+            </startOffsets>
+            <endOffsets>
+              <option value="828" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Realta.Persistence/Repositories/RepositoryExtensions/RepositoryVenProExtension.cs</url>
+          <line>52</line>
+          <properties documentPath="D:\Bootcamp 18\newAPI\HotelRealtaAPI\Realta.Persistence\Repositories\RepositoryExtensions\RepositoryVenProExtension.cs" initialLine="52" containingFunctionPresentation="method 'Sort'">
+            <startOffsets>
+              <option value="2019" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2053" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

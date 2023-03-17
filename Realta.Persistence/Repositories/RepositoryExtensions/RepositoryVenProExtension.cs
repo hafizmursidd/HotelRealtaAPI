@@ -11,24 +11,24 @@ namespace Realta.Persistence.Repositories.RepositoryExtensions
 {
     public static class RepositoryVenProExtension
     {
-        public static IQueryable<VendorProduct> Search(this IQueryable<VendorProduct> vendors, string Keyword)
+        public static IQueryable<VendorProduct> Search(this IQueryable<VendorProduct> venpro, string Keyword)
         {
             if (string.IsNullOrWhiteSpace(Keyword))
-                return vendors;
+                return venpro;
 
             var lowerCaseSearchTerm = Keyword.Trim().ToLower();
 
-            return vendors.Where(p => p.StockName.ToLower().Contains(lowerCaseSearchTerm));
+            return venpro.Where(p => p.StockName.ToLower().Contains(lowerCaseSearchTerm));
         }
 
    
         public static IQueryable<VendorProduct> Sort(this IQueryable<VendorProduct> venpro, string orderByQueryString)
         {
             if (string.IsNullOrWhiteSpace(orderByQueryString))
-                return venpro.OrderBy(e => e.StockName);
+                return venpro.OrderBy(e => e.VeproId);
 
             var orderParams = orderByQueryString.Trim().Split(',');
-            var propertyInfos = typeof(Vendor).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var propertyInfos = typeof(VendorProduct).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var orderQueryBuilder = new StringBuilder();
 
             foreach (var param in orderParams)
@@ -42,7 +42,7 @@ namespace Realta.Persistence.Repositories.RepositoryExtensions
                 if (objectProperty == null)
                     continue;
 
-                var direction = param.EndsWith(" desc") ? "descending" : "ascending";
+                var direction = param.EndsWith("desc") ? "descending" : "ascending";
                 orderQueryBuilder.Append($"{objectProperty.Name} {direction}, ");
             }
 
@@ -50,7 +50,8 @@ namespace Realta.Persistence.Repositories.RepositoryExtensions
             if (string.IsNullOrWhiteSpace(orderQuery))
                 return venpro.OrderBy(e => e.StockName);
 
-            return venpro.OrderBy(e => e.StockName);
+            var abc = venpro.OrderBy(orderQuery);
+            return venpro.OrderBy(orderQuery);
         }
 
     }

@@ -51,10 +51,9 @@ namespace Realta.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVenproPaging([FromQuery] VenproParameters venproParameters, int id)
         {
-               var venpro = _repositoryManager.VendorProductRepository.GetVenpro(venproParameters, id);
-               PagedList<VendorProduct> pagedList = await venpro;
-               Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(pagedList.MetaData));
-               return Ok(pagedList);
+               var venpro = await _repositoryManager.VendorProductRepository.GetVenpro(venproParameters, id);
+               Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(venpro.MetaData));
+               return Ok(venpro);
         }
         //public async Task<IActionResult> FindById(int id)
         //{

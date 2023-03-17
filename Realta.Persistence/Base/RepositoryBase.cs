@@ -87,6 +87,22 @@ namespace Realta.Persistence.Base
             return listData;
         }
 
+        public async Task<IAsyncEnumerator<T>> GetAllAsyncCoba<T>(SqlCommandModel model)
+        {
+            var dataT = _adoContext.ExecuteReaderAsync<T>(model);
+            _adoContext.DisposeAsync();
+            return dataT;
+
+            //var dataT = _adoContext.ExecuteReaderAsync<T>(model);
+            //var listData = new List<T>();
+            //while (await dataT.MoveNextAsync())
+            //{
+            //    listData.Add(dataT.Current);
+            //}
+            //_adoContext.DisposeAsync();
+            //return listData;
+        }
+
         public async Task<IEnumerable<T>> GetByCondition<T>(SqlCommandModel model)
         {
             var dataT = _adoContext.ExecuteReaderAsync<T>(model);
