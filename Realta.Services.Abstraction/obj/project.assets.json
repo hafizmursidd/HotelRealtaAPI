@@ -127,11 +127,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\RealtaHotel\\RealtaHotelAPI\\Realta.Services.Abstraction\\Realta.Services.Abstraction.csproj",
+      "projectUniqueName": "D:\\RealtaHotel\\HotelRealtaAPI\\Realta.Services.Abstraction\\Realta.Services.Abstraction.csproj",
       "projectName": "Realta.Services.Abstraction",
-      "projectPath": "D:\\RealtaHotel\\RealtaHotelAPI\\Realta.Services.Abstraction\\Realta.Services.Abstraction.csproj",
+      "projectPath": "D:\\RealtaHotel\\HotelRealtaAPI\\Realta.Services.Abstraction\\Realta.Services.Abstraction.csproj",
       "packagesPath": "C:\\Users\\CODE.ID\\.nuget\\packages\\",
-      "outputPath": "D:\\RealtaHotel\\RealtaHotelAPI\\Realta.Services.Abstraction\\obj\\",
+      "outputPath": "D:\\RealtaHotel\\HotelRealtaAPI\\Realta.Services.Abstraction\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\CODE.ID\\AppData\\Roaming\\NuGet\\NuGet.Config",
