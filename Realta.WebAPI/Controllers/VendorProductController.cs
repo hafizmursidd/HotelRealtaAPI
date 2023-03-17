@@ -29,7 +29,7 @@ namespace Realta.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
-            var products = await _repositoryManager.VendorProductRepository.FindAllVendorProductAsync();
+            var products = await _repositoryManager.VendorProductRepository.FindAllVendorProductAsync();    
             return Ok(products.ToList());
         }
 

@@ -21,7 +21,7 @@ namespace Realta.Persistence.Repositories.RepositoryExtensions
             return vendors.Where(p => p.StockName.ToLower().Contains(lowerCaseSearchTerm));
         }
 
-        //variabel belum disesuaikan
+   
         public static IQueryable<VendorProduct> Sort(this IQueryable<VendorProduct> venpro, string orderByQueryString)
         {
             if (string.IsNullOrWhiteSpace(orderByQueryString))
