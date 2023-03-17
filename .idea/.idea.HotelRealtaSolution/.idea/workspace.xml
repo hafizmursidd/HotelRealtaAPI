@@ -7,7 +7,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d577d8af-c47a-4cd0-827f-03c663000ce2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HotelRealtaSolution/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HotelRealtaSolution/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Realta.Persistence/Repositories/VendorRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Realta.Persistence/Repositories/VendorRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +96,7 @@
       <workItem from="1678910063909" duration="143000" />
       <workItem from="1678910795466" duration="1191000" />
       <workItem from="1678914419133" duration="3498000" />
+      <workItem from="1679015280087" duration="538000" />
     </task>
     <task id="LOCAL-00001" summary="fix typo on git ignore&#10;Realta.Services.Abstraction/bin&#10;Realta.Services.Abstraction/obj">
       <created>1678731843362</created>
@@ -126,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678911026250</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Merger Vendor to Main">
+      <created>1678958706114</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1678958706114</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,6 +148,7 @@
     <MESSAGE value="merge vendor to po" />
     <MESSAGE value="add VenproParameters.cs dan repositoryvenproExtension" />
     <MESSAGE value="Vendor to main" />
-    <option name="LAST_COMMIT_MESSAGE" value="Vendor to main" />
+    <MESSAGE value="Merger Vendor to Main" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merger Vendor to Main" />
   </component>
 </project>
