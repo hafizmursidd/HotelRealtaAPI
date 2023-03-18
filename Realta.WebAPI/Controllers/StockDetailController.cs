@@ -125,8 +125,8 @@ namespace Realta.WebAPI.Controllers
         }
 
         // PUT api/<StockDetailController>/5
-        [HttpPut("generateBarcodePo/{id}")]
-        public IActionResult GenerateBarcode(int id, [FromBody] PurchaseOrderDetail purchaseOrderDetailDto)
+        [HttpPost("generateBarcodePo/{id}")]
+        public IActionResult GenerateBarcode(int id, [FromBody] QtyUpdateDto purchaseOrderDetailDto)
         {
             if (purchaseOrderDetailDto == null)
             {

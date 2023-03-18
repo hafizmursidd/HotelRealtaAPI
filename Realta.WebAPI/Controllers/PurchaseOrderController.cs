@@ -65,7 +65,7 @@ namespace Realta.WebAPI.Controllers
 
         // POST api/<PurchaseOrderController>
         [HttpPost]
-        public IActionResult InsertPurchaseOrder([FromBody] PurchaseOrderTransfer[] data)
+        public IActionResult InsertPurchaseOrder([FromBody] List<PurchaseOrderTransfer> data)
         {
             foreach (var i in data)
             {

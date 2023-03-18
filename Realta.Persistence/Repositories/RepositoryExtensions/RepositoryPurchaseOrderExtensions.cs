@@ -20,9 +20,12 @@ public static class RepositoryPurchaseOrderExtensions
         );
     }
 
-    public static IQueryable<PurchaseOrderHeader> Status(this IQueryable<PurchaseOrderHeader> purchaseOrder, int? status)
+    public static IQueryable<PurchaseOrderHeader> Status(this IQueryable<PurchaseOrderHeader> purchaseOrder, string? status)
     {
-        return status == null ? purchaseOrder : purchaseOrder.Where(p => p.PoheStatus == status);
+        if (string.IsNullOrWhiteSpace(status))
+            return purchaseOrder;
+        
+        return purchaseOrder.Where(p => p.PoheStatus.ToString().Equals(status));
     }
 
     public static IQueryable<PurchaseOrderHeader> Sort(this IQueryable<PurchaseOrderHeader> purchaseOrder, string orderByQueryString)
