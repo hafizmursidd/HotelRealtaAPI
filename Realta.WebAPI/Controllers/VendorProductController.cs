@@ -26,12 +26,12 @@ namespace Realta.WebAPI.Controllers
 
 
         // GET: api/<VendorProductController>
-        [HttpGet]
-        public async Task<IActionResult> GetAsync()
-        {
-            var products = await _repositoryManager.VendorProductRepository.FindAllVendorProductAsync();    
-            return Ok(products.ToList());
-        }
+        // [HttpGet]
+        // public async Task<IActionResult> GetAsync()
+        // {
+        //     var products = await _repositoryManager.VendorProductRepository.FindAllVendorProductAsync();    
+        //     return Ok(products.ToList());
+        // }
 
         // GET api/<VendorProductController>/5
         //[HttpGet("{id}", Name = "GetVenpro")]
@@ -115,11 +115,13 @@ namespace Realta.WebAPI.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateVendorProduct(int id, [FromBody] VendorProductDto VenpoDto)
         {
-            if (VenpoDto == null)
+            var result = _repositoryManager.VendorProductRepository.FindVendorProductById(id);
+
+            if (result == null || VenpoDto == null)
             {
                 _logger.LogError("Object sent from client is null");
-                return BadRequest("Object is null");
-            }
+                return BadRequest("Product tersebut tidak ditemukan");
+            }           
 
             var venPo = new VendorProduct()
             {
@@ -131,7 +133,7 @@ namespace Realta.WebAPI.Controllers
 
             //post to database
             _repositoryManager.VendorProductRepository.Edit(venPo);
-            return Ok("Update Sucessfully");
+            return Ok($"Update Sucessfully {id}");
         }
 
         // DELETE api/<VendorProductController>/5
@@ -148,6 +150,15 @@ namespace Realta.WebAPI.Controllers
 
             _repositoryManager.VendorProductRepository.Remove(vendpro);
             return Ok("Data Has Been Removed");
+        }
+        
+        // GET: api/<VendorProductController>
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync([FromQuery] VenproParameters param)
+        {
+            var products = await _repositoryManager.VendorProductRepository.GetAll(param);    
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(products.MetaData));
+            return Ok(products);
         }
     }
 }
