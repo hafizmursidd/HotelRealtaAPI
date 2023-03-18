@@ -38,7 +38,7 @@ namespace Realta.WebAPI.Controllers
             {
                 CartVeproId = cart.CartVeproId,
                 CartEmpId = cart.CartEmpId,
-                CartOrderQty = cart.CartOrderQty,
+                CartOrderQty = cart.CartOrderQty
             };
 
             _repositoryManager.CartRepository.Insert(dto);
