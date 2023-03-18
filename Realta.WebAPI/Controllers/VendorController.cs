@@ -67,6 +67,45 @@ namespace Realta.WebAPI.Controllers
 
         }
 
+        [HttpGet("header")]
+        public async Task<IActionResult> GetAllVendorHeader()
+        {
+            var vendor = await _repositoryManager.VendorRepository.FindHeaderVendor();
+
+            if (vendor == null)
+            {
+                _logger.LogError("Object  sent from client is null");
+                return BadRequest($"Object with is not found");
+            }
+            var vendorDto = vendor.Select(v => new VendorHeaderDto
+            {
+                VendorEntityId = v.VendorEntityId,
+                VendorName = v.VendorName
+            });
+    
+            return Ok(vendorDto);
+
+        }
+        [HttpGet("header/{id}")]
+        public IActionResult VendorHeader(int id)
+        {
+            var vendor = _repositoryManager.VendorRepository.FindHeaderVendorById(id);
+
+            if (vendor == null)
+            {
+                _logger.LogError("Object  sent from client is null");
+                return BadRequest($"Object with id {id} is not found");
+            }
+            var vendorDto = new VendorHeaderDto
+            {
+                VendorEntityId = vendor.VendorEntityId,
+                VendorName = vendor.VendorName
+            };
+
+            return Ok(vendorDto);
+
+        }
+
         [HttpGet("paging")]
         public async Task<IActionResult> GetVendorPaging([FromQuery] VendorParameters vendorParameters)
         {
