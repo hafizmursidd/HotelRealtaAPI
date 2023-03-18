@@ -13,8 +13,8 @@ namespace Realta.Contract.Models
         //end create cart param
         
         //show cart
-        public string VendorName { get; set; }
-        public string StockName { get; set; }
+        public string? VendorName { get; set; }
+        public string? StockName { get; set; }
         public decimal VeproPrice { get; set; }
         
         public decimal Subtotal

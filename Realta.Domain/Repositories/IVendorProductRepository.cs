@@ -15,6 +15,7 @@ namespace Realta.Domain.Repositories
         VendorProduct FindVendorProductById(int vendorId);
         Task<IEnumerable<VendorProduct>> FindVendorProductByVendorId(int vendorId);
         Task<PagedList<VendorProduct>> GetVenpro(VenproParameters vendorProParameters, int id);
+        Task<PagedList<VendorProduct>> GetAll(VenproParameters vendorProParameters);
         VendorProductNested GetVendorProduct(int VendorId);
         void Insert(VendorProduct venPro);
         void Edit(VendorProduct venPro);

@@ -363,5 +363,37 @@ namespace Realta.Persistence.Repositories
                                                         vendorProParameters.PageSize);
 
         }
+        
+        public async Task<PagedList<VendorProduct>> GetAll(VenproParameters vendorProParameters)
+        {
+            var model = new SqlCommandModel()
+            {
+                CommandText = @"SELECT venpro.vepro_id as VeproId, 
+                                       ven.vendor_name as VendorName, 
+                                       s.stock_name as StockName, 
+                                       venpro.vepro_qty_stocked as VeproQtyStocked, 
+                                       venpro.vepro_qty_remaining as VeproQtyRemaining, 
+                                       venpro.vepro_price as VeproPrice, 
+                                       venpro.venpro_stock_id as VenproStockId, 
+                                       venpro.vepro_vendor_id as VeproVendorId 
+                                  FROM Purchasing.vendor_product as venpro 
+                                  JOIN Purchasing.stocks as s 
+                                    ON s.stock_id = venpro.venpro_stock_id 
+                                  JOIN Purchasing.vendor as ven 
+                                    ON venpro.vepro_vendor_id = ven.vendor_entity_id ",
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[] { }
+            };
+
+            var dataset = await GetAllAsync<VendorProduct>(model);
+            var venproSearch = dataset.AsQueryable()
+                               .Search(vendorProParameters.Keyword)
+                               .Sort(vendorProParameters.OrderBy);
+
+            return PagedList<VendorProduct>.ToPagedList(venproSearch.ToList(),
+                                                        vendorProParameters.PageNumber,
+                                                        vendorProParameters.PageSize);
+
+        }
     }
 }
