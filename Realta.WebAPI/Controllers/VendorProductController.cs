@@ -26,12 +26,12 @@ namespace Realta.WebAPI.Controllers
 
 
         // GET: api/<VendorProductController>
-        [HttpGet]
-        public async Task<IActionResult> GetAsync()
-        {
-            var products = await _repositoryManager.VendorProductRepository.FindAllVendorProductAsync();    
-            return Ok(products.ToList());
-        }
+        // [HttpGet]
+        // public async Task<IActionResult> GetAsync()
+        // {
+        //     var products = await _repositoryManager.VendorProductRepository.FindAllVendorProductAsync();    
+        //     return Ok(products.ToList());
+        // }
 
         // GET api/<VendorProductController>/5
         //[HttpGet("{id}", Name = "GetVenpro")]
@@ -150,6 +150,15 @@ namespace Realta.WebAPI.Controllers
 
             _repositoryManager.VendorProductRepository.Remove(vendpro);
             return Ok("Data Has Been Removed");
+        }
+        
+        // GET: api/<VendorProductController>
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync([FromQuery] VenproParameters param)
+        {
+            var products = await _repositoryManager.VendorProductRepository.GetAll(param);    
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(products.MetaData));
+            return Ok(products);
         }
     }
 }
