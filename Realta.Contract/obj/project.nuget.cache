@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "qIcNgtRAPM/aVMMu2Jpy1w7UueuCJR32x4lA/MPh5PVA1yRcepCeoJWK8wj8NeGRXUMcVzzqwowjAd4J68kuMQ==",
+  "dgSpecHash": "wCl5SK2AA070VPwUALwsxprwsaHsqKneJ1SVQMZ4T+3l9jbEIBlGql18RU7MPwSwANTmA9bpuSels5SCvjXGbw==",
   "success": true,
-  "projectFilePath": "D:\\Bootcamp 18\\HotelRealtaApi\\HotelRealtaAPI\\Realta.Contract\\Realta.Contract.csproj",
+  "projectFilePath": "D:\\Batch20\\FinalProject\\HotelRealtaAPI\\Realta.Contract\\Realta.Contract.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\hafiz\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
-    "C:\\Users\\hafiz\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
-    "C:\\Users\\hafiz\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
   ],
   "logs": []
 }
