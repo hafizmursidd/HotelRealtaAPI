@@ -235,5 +235,59 @@ namespace Realta.Persistence.Repositories
             _adoContext.ExecuteNonQuery(model);
             _adoContext.Dispose();
         }
+
+        public Vendor FindHeaderVendorById(int id)
+        {
+            SqlCommandModel model = new SqlCommandModel()
+            {
+                CommandText = @"select 
+                                vendor_entity_id VendorEntityId,
+                                vendor_name VendorName
+                                from purchasing.vendor
+                                where vendor_entity_id = @Id;",
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[] {
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@Id",
+                        DataType = DbType.Int32,
+                        Value = id
+                    }
+                }
+            };
+            var dataSet = FindByCondition<Vendor>(model);
+            Vendor? item = dataSet.Current;
+
+            while (dataSet.MoveNext())
+            {
+                item = dataSet.Current;
+            }
+
+            return item;
+
+        }
+
+        public async Task<IEnumerable<Vendor>> FindHeaderVendor()
+        {
+            SqlCommandModel model = new SqlCommandModel()
+            {
+                CommandText = @"Select 
+                    vendor_entity_id AS VendorEntityId, 
+                    vendor_name AS VendorName 
+                    From purchasing.vendor
+					ORDER BY VendorName"
+    ,
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[] {
+                }
+            };
+            IAsyncEnumerator<Vendor> dataSet = FindAllAsync<Vendor>(model);
+
+            var result = new List<Vendor>();
+            while (await dataSet.MoveNextAsync())
+            {
+                result.Add(dataSet.Current);
+            }
+            return result;
+        }
     }
 }

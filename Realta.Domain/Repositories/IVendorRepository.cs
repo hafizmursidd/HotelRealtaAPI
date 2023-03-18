@@ -20,5 +20,7 @@ namespace Realta.Domain.Repositories
         void Insert(Vendor vendor);
         void Edit(Vendor vendor);
         void Remove(Vendor vendor);
+        Vendor FindHeaderVendorById(int id);
+        Task<IEnumerable<Vendor>> FindHeaderVendor();
     }
 }

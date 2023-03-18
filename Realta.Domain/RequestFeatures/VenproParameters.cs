@@ -9,6 +9,6 @@ namespace Realta.Domain.RequestFeatures
     public class VenproParameters : RequestParameters
     {
         public string? Keyword { set; get; }
-        public string OrderBy { get; set; } = "venvproId";
+        public string OrderBy { get; set; } = "venproId";
     }
 }

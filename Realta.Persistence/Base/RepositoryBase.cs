@@ -114,5 +114,6 @@ namespace Realta.Persistence.Base
             _adoContext.DisposeAsync();
             return listData;
         }
+
     }
 }
