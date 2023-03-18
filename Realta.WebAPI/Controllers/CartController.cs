@@ -27,14 +27,7 @@ namespace Realta.WebAPI.Controllers
         public async Task<IActionResult> GetCart(int? empId)
         {
             var result = await _repositoryManager.CartRepository.GetAllAsync(empId);
-
             return Ok(result);
-            //return Ok(new
-            //{
-            //    status = "Success",
-            //    message = "Success to fetch data.",
-            //    data = result
-            //});
         }
 
         // POST api/<CartController>
@@ -45,7 +38,7 @@ namespace Realta.WebAPI.Controllers
             {
                 CartVeproId = cart.CartVeproId,
                 CartEmpId = cart.CartEmpId,
-                CartOrderQty = cart.CartOrderQty,
+                CartOrderQty = cart.CartOrderQty
             };
 
             _repositoryManager.CartRepository.Insert(dto);

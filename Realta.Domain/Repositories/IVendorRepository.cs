@@ -1,4 +1,6 @@
-﻿using Realta.Domain.Entities;
+﻿using Realta.Domain.Dto;
+using Realta.Domain.Entities;
+using Realta.Domain.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +14,13 @@ namespace Realta.Domain.Repositories
     {
         IEnumerable<Vendor> FindAllVendor();
         Task<IEnumerable<Vendor>> FindAllVendorAsync();
+        Task<PagedList<Vendor>> GetVendorPaging (VendorParameters vendorParameters);
+        Task<PagedList<Vendor>> GetVendorPage (VendorParameters vendorParameters);
         Vendor FindVendorById(int id);
         void Insert(Vendor vendor);
         void Edit(Vendor vendor);
         void Remove(Vendor vendor);
+        Vendor FindHeaderVendorById(int id);
+        Task<IEnumerable<Vendor>> FindHeaderVendor();
     }
 }

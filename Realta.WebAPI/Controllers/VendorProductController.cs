@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.OAuth.Claims;
+using Newtonsoft.Json;
 using Realta.Contract.Models;
 using Realta.Domain.Base;
 using Realta.Domain.Entities;
+using Realta.Domain.RequestFeatures;
 using Realta.Services.Abstraction;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -23,52 +26,57 @@ namespace Realta.WebAPI.Controllers
 
 
         // GET: api/<VendorProductController>
-        [HttpGet]
-        //tanpa asyncronous
-        //public IActionResult FetchAll()
+        // [HttpGet]
+        // public async Task<IActionResult> GetAsync()
+        // {
+        //     var products = await _repositoryManager.VendorProductRepository.FindAllVendorProductAsync();    
+        //     return Ok(products.ToList());
+        // }
+
+        // GET api/<VendorProductController>/5
+        //[HttpGet("{id}", Name = "GetVenpro")]
+        //public IActionResult GetVendorById(int id)
         //{
         //    try
         //    {
-        //        var venpor = _repositoryManager.VendorProductRepository.FindAllVendorProduct().ToList();
-        //        return Ok(venpor);
+        //        var vendor = _repositoryManager.VendorProductRepository.GetVendorProduct(id);
+        //        return Ok(vendor);
         //    }
-        //    catch (Exception)
-        //    {
-        //        _logger.LogError($"Error : {nameof(Get)}");
-        //        return StatusCode(500, "Internal server error.");
+        //    catch {
+
+        //        return BadRequest("Object Not Found");
         //    }
         //}
 
-        public async Task<IActionResult> GetAsync()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetVenproPaging([FromQuery] VenproParameters venproParameters, int id)
         {
-            var products = await _repositoryManager.VendorProductRepository.FindAllVendorProductAsync();    
-            return Ok(products.ToList());
+               var venpro = await _repositoryManager.VendorProductRepository.GetVenpro(venproParameters, id);
+               Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(venpro.MetaData));
+               return Ok(venpro);
         }
+        //public async Task<IActionResult> FindById(int id)
+        //{
 
-
-        // GET api/<VendorProductController>/5
-        [HttpGet("{id}", Name = "GetVenpro")]
-        public IActionResult FindById(int id)
-        {
-            var vendpor = _repositoryManager.VendorProductRepository.FindVendorProductById(id);
-
-            if (vendpor == null)
-            {
-                _logger.LogError("Region object sent from client is null");
-                return BadRequest($"Region with id {id} is not found");
-            }
-            var venporDto = new VendorProduct
-            {
-                vepro_id = vendpor.vepro_id,
-                vepro_qty_stocked = vendpor.vepro_qty_stocked,
-                vepro_qty_remaining = vendpor.vepro_qty_remaining,
-                vepro_price = vendpor.vepro_price,
-                venpro_stock_id = vendpor.venpro_stock_id,
-                vepro_vendor_id = vendpor.vepro_vendor_id
-            };
-
-            return Ok(venporDto);
-        }
+        //    var vendpor = await _repositoryManager.VendorProductRepository.FindVendorProductByVendorId(id);
+        //    if (vendpor == null)
+        //    {
+        //        _logger.LogError("Region object sent from client is null");
+        //        return BadRequest($"Region with id {id} is not found");
+        //    }
+        //    var venporDto = vendpor.Select( v => new VendorProductDto
+        //    {
+        //        VeproId = v.VeproId,
+        //        VendorName = v.VendorName,
+        //        StockName = v.StockName,
+        //        VeproQtyStocked = v.VeproQtyStocked,
+        //        VeproQtyRemaining = v.VeproQtyRemaining,
+        //        VeproPrice = v.VeproPrice,
+        //        VenproStockId = v.VenproStockId,
+        //        VeproVendorId = v.VeproVendorId
+        //    });
+        //    return Ok(venporDto);
+        //}
 
         // POST api/<VendorProductController>
         [HttpPost]
@@ -82,49 +90,50 @@ namespace Realta.WebAPI.Controllers
 
             var venpro = new VendorProduct()
             {
-                vepro_qty_stocked = Dto.vepro_qty_stocked,
-                vepro_qty_remaining= Dto.vepro_qty_remaining,
-                vepro_price = Dto.vepro_price,
-                venpro_stock_id = Dto.venpro_stock_id,
-                vepro_vendor_id = Dto.vepro_vendor_id
+                VeproQtyStocked = Dto.VeproQtyStocked,
+                VeproQtyRemaining= Dto.VeproQtyRemaining,
+                VeproPrice = Dto.VeproPrice,
+                VenproStockId = Dto.VenproStockId,
+                VeproVendorId = Dto.VeproVendorId
             };
 
+           var validasi =  _repositoryManager.VendorProductRepository.ValidasiInsert(Dto.VenproStockId, Dto.VeproVendorId);
             //post to database
-            _repositoryManager.VendorProductRepository.Insert(venpro);
-
-            var result = _repositoryManager.VendorProductRepository.FindVendorProductById(venpro.vepro_id);
-            //Redirect
-            return CreatedAtRoute("GetVenpro", new { id = venpro.vepro_id }, result);
+            if (validasi == true)
+            {
+                _repositoryManager.VendorProductRepository.Insert(venpro);
+                // var result = _repositoryManager.VendorProductRepository.FindVendorProductById(venpro.VeproId);
+                return Ok($"Object with Has been Inserted");//Redirect
+            }
+            else
+            {
+                return BadRequest("Data Input Has Been Exist");
+            }
         }
 
         // PUT api/<VendorProductController>/5
         [HttpPut("{id}")]
         public IActionResult UpdateVendorProduct(int id, [FromBody] VendorProductDto VenpoDto)
         {
+            var result = _repositoryManager.VendorProductRepository.FindVendorProductById(id);
 
-            // lakukan validasi pada regiondto not null
-
-
-            if (VenpoDto == null)
+            if (result == null || VenpoDto == null)
             {
                 _logger.LogError("Object sent from client is null");
-                return BadRequest("Object is null");
-            }
+                return BadRequest("Product tersebut tidak ditemukan");
+            }           
 
             var venPo = new VendorProduct()
             {
-                vepro_id = id,
-                vepro_qty_stocked = VenpoDto.vepro_qty_stocked,
-                vepro_qty_remaining = VenpoDto.vepro_qty_remaining,
-                vepro_price = VenpoDto.vepro_price
+                VeproId = id,
+                VeproQtyStocked = VenpoDto.VeproQtyStocked,
+                VeproQtyRemaining = VenpoDto.VeproQtyRemaining,
+                VeproPrice = VenpoDto.VeproPrice
             };
 
             //post to database
             _repositoryManager.VendorProductRepository.Edit(venPo);
-            var result = _repositoryManager.VendorProductRepository.FindVendorProductById(id);
-
-            //Redirect
-            return CreatedAtRoute("GetVenpro", new { id }, result);
+            return Ok($"Update Sucessfully {id}");
         }
 
         // DELETE api/<VendorProductController>/5
@@ -141,6 +150,15 @@ namespace Realta.WebAPI.Controllers
 
             _repositoryManager.VendorProductRepository.Remove(vendpro);
             return Ok("Data Has Been Removed");
+        }
+        
+        // GET: api/<VendorProductController>
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync([FromQuery] VenproParameters param)
+        {
+            var products = await _repositoryManager.VendorProductRepository.GetAll(param);    
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(products.MetaData));
+            return Ok(products);
         }
     }
 }

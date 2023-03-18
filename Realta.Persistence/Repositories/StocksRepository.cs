@@ -2,15 +2,9 @@
 using Realta.Domain.Repositories;
 using Realta.Domain.RequestFeatures;
 using Realta.Persistence.Base;
-using Realta.Persistence.Interface;
+using Realta.Persistence.Repositories.RepositoryExtensions;
 using Realta.Persistence.RepositoryContext;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Realta.Persistence.Repositories
 {
@@ -26,7 +20,8 @@ namespace Realta.Persistence.Repositories
             {
                 CommandText = "UPDATE purchasing.stocks SET " +
                 "stock_name=@stockName, stock_description=@stockDesc, " +
-                "stock_reorder_point=@stockRP, " +
+                "stock_reorder_point=@stockRP, stock_quantity=@stockQty, " +
+                "stock_used=@stockUsed, stock_scrap=@stockScrap" +
                 "stock_size=@stockSize, stock_color=@stockColor, " +
                 "stock_modified_date=@stockModifiedDate " +
                 "WHERE stock_id=@stockId;",
@@ -51,6 +46,21 @@ namespace Realta.Persistence.Repositories
                         ParameterName = "@stockRP",
                         DataType = DbType.Int16,
                         Value = stocks.StockReorderPoint
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@stockQty",
+                        DataType = DbType.Int16,
+                        Value = stocks.StockQty
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@stockUsed",
+                        DataType = DbType.Int16,
+                        Value = stocks.StockUsed
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@stockScrap",
+                        DataType = DbType.Int16,
+                        Value = stocks.StockScrap
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@stockSize",
@@ -138,36 +148,30 @@ namespace Realta.Persistence.Repositories
                 CommandText = "SELECT stock_id as StockId, stock_name as StockName, " +
                 "stock_description as StockDesc, stock_quantity as StockQty, stock_reorder_point as StockReorderPoint, " +
                 "stock_used as StockUsed, stock_scrap as StockScrap, stock_size as StockSize, stock_color as StockColor, " +
-                "stock_modified_date as StockModifiedDate FROM Purchasing.stocks ORDER BY stock_id " +
-                "OFFSET @pageNo ROWS FETCH NEXT @pageSize ROWS ONLY",
+                "stock_modified_date as StockModifiedDate FROM Purchasing.stocks ORDER BY stock_id ;",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
-                        ParameterName = "@pageNo",
-                        DataType = DbType.Int32,
-                        Value = stocksParameters.PageNumber
-                    },
-                    new SqlCommandParameterModel() {
-                        ParameterName = "@pageSize",
-                        DataType = DbType.Int32,
-                        Value = stocksParameters.PageSize
-                    }
+                    
                 }
             };
 
             var stocks = await GetAllAsync<Stocks>(model);
             var totalRows = stocks.Count();
 
-            return new PagedList<Stocks>(stocks.ToList(), totalRows, stocksParameters.PageNumber, stocksParameters.PageSize);
+            var stockSearch = stocks.AsQueryable()
+                .SearchStock(stocksParameters.SearchTerm)
+                .Sort(stocksParameters.OrderBy);
+
+            return new PagedList<Stocks>(stockSearch.ToList(), totalRows, stocksParameters.PageNumber, stocksParameters.PageSize);
         }
 
         public void Insert(Stocks stocks)
         {
             SqlCommandModel model = new SqlCommandModel()
             {
-                CommandText = "INSERT INTO purchasing.stocks (stock_name, stock_description, " +
-                "stock_reorder_point, stock_size, stock_color, " +
-                "stock_modified_date) values (@stockName,@stockDesc, @stockRP, " +
+                CommandText = "INSERT INTO purchasing.stocks (stock_name, stock_reorder_point, stock_quantity, " +
+                "stock_used, stock_scrap, stock_size, stock_color, stock_modified_date) " +
+                "values (@stockName, @stockRP, @stockQty, @stockUsed, @stockScrap, " +
                 "@stockSize, @stockColor, @stockModifiedDate);" +
                 "SELECT CAST (scope_identity() as int);",
                 CommandType = CommandType.Text,
@@ -178,14 +182,24 @@ namespace Realta.Persistence.Repositories
                         Value = stocks.StockName
                     },
                     new SqlCommandParameterModel() {
-                        ParameterName = "@stockDesc",
-                        DataType = DbType.String,
-                        Value = stocks.StockDesc
-                    },
-                    new SqlCommandParameterModel() {
                         ParameterName = "@stockRP",
                         DataType = DbType.Int16,
                         Value = stocks.StockReorderPoint
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@stockQty",
+                        DataType = DbType.Int16,
+                        Value = stocks.StockQty
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@stockUsed",
+                        DataType = DbType.Int16,
+                        Value = stocks.StockUsed
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@stockScrap",
+                        DataType = DbType.Int16,
+                        Value = stocks.StockScrap
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@stockSize",
