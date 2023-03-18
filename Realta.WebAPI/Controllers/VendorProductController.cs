@@ -115,11 +115,13 @@ namespace Realta.WebAPI.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateVendorProduct(int id, [FromBody] VendorProductDto VenpoDto)
         {
-            if (VenpoDto == null)
+            var result = _repositoryManager.VendorProductRepository.FindVendorProductById(id);
+
+            if (result == null || VenpoDto == null)
             {
                 _logger.LogError("Object sent from client is null");
-                return BadRequest("Object is null");
-            }
+                return BadRequest("Product tersebut tidak ditemukan");
+            }           
 
             var venPo = new VendorProduct()
             {
@@ -131,7 +133,7 @@ namespace Realta.WebAPI.Controllers
 
             //post to database
             _repositoryManager.VendorProductRepository.Edit(venPo);
-            return Ok("Update Sucessfully");
+            return Ok($"Update Sucessfully {id}");
         }
 
         // DELETE api/<VendorProductController>/5
