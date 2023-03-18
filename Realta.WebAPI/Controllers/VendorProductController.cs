@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.OAuth.Claims;
+using Newtonsoft.Json;
 using Realta.Contract.Models;
 using Realta.Domain.Base;
 using Realta.Domain.Entities;
+using Realta.Domain.RequestFeatures;
 using Realta.Services.Abstraction;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -23,26 +26,34 @@ namespace Realta.WebAPI.Controllers
 
 
         // GET: api/<VendorProductController>
-        [HttpGet]
-        public async Task<IActionResult> GetAsync()
-        {
-            var products = await _repositoryManager.VendorProductRepository.FindAllVendorProductAsync();    
-            return Ok(products.ToList());
-        }
+        // [HttpGet]
+        // public async Task<IActionResult> GetAsync()
+        // {
+        //     var products = await _repositoryManager.VendorProductRepository.FindAllVendorProductAsync();    
+        //     return Ok(products.ToList());
+        // }
 
         // GET api/<VendorProductController>/5
-        [HttpGet("{id}", Name = "GetVenpro")]
-        public IActionResult GetVendorById(int id)
+        //[HttpGet("{id}", Name = "GetVenpro")]
+        //public IActionResult GetVendorById(int id)
+        //{
+        //    try
+        //    {
+        //        var vendor = _repositoryManager.VendorProductRepository.GetVendorProduct(id);
+        //        return Ok(vendor);
+        //    }
+        //    catch {
+
+        //        return BadRequest("Object Not Found");
+        //    }
+        //}
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetVenproPaging([FromQuery] VenproParameters venproParameters, int id)
         {
-            try
-            {
-                var vendor = _repositoryManager.VendorProductRepository.GetVendorProduct(id);
-                return Ok(vendor);
-            }
-            catch { 
-            
-                return BadRequest("Object Not Found");
-            }
+               var venpro = await _repositoryManager.VendorProductRepository.GetVenpro(venproParameters, id);
+               Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(venpro.MetaData));
+               return Ok(venpro);
         }
         //public async Task<IActionResult> FindById(int id)
         //{
@@ -104,11 +115,13 @@ namespace Realta.WebAPI.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateVendorProduct(int id, [FromBody] VendorProductDto VenpoDto)
         {
-            if (VenpoDto == null)
+            var result = _repositoryManager.VendorProductRepository.FindVendorProductById(id);
+
+            if (result == null || VenpoDto == null)
             {
                 _logger.LogError("Object sent from client is null");
-                return BadRequest("Object is null");
-            }
+                return BadRequest("Product tersebut tidak ditemukan");
+            }           
 
             var venPo = new VendorProduct()
             {
@@ -120,7 +133,7 @@ namespace Realta.WebAPI.Controllers
 
             //post to database
             _repositoryManager.VendorProductRepository.Edit(venPo);
-            return Ok("Update Sucessfully");
+            return Ok($"Update Sucessfully {id}");
         }
 
         // DELETE api/<VendorProductController>/5
@@ -137,6 +150,15 @@ namespace Realta.WebAPI.Controllers
 
             _repositoryManager.VendorProductRepository.Remove(vendpro);
             return Ok("Data Has Been Removed");
+        }
+        
+        // GET: api/<VendorProductController>
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync([FromQuery] VenproParameters param)
+        {
+            var products = await _repositoryManager.VendorProductRepository.GetAll(param);    
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(products.MetaData));
+            return Ok(products);
         }
     }
 }

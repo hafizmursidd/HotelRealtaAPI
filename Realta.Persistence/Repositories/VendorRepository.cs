@@ -4,6 +4,7 @@ using Realta.Domain.Repositories;
 using Realta.Domain.RequestFeatures;
 using Realta.Persistence.Base;
 using Realta.Persistence.Interface;
+using Realta.Persistence.Repositories.RepositoryExtensions;
 using Realta.Persistence.RepositoryContext;
 using System;
 using System.Collections.Generic;
@@ -27,27 +28,27 @@ namespace Realta.Persistence.Repositories
                 CommandType = CommandType.StoredProcedure,
                 CommandParameters = new SqlCommandParameterModel[] {
                     new SqlCommandParameterModel() {
-                        ParameterName = "@vendorId",
+                        ParameterName = "@Id",
                         DataType = DbType.Int32,
                         Value = vendor.VendorEntityId
                     },
                     new SqlCommandParameterModel() {
-                        ParameterName = "@vendorName",
+                        ParameterName = "@name",
                         DataType = DbType.String,
                         Value = vendor.VendorName
                     },
                     new SqlCommandParameterModel() {
-                        ParameterName = "@vendorActive",
+                        ParameterName = "@Active",
                         DataType = DbType.Boolean,
                         Value = vendor.VendorActive
                     },
                     new SqlCommandParameterModel() {
-                        ParameterName = "@vendorPriority",
+                        ParameterName = "@Priority",
                         DataType = DbType.Boolean,
                         Value = vendor.VendorPriority
                     },
                     new SqlCommandParameterModel() {
-                        ParameterName = "@vendorWebURL",
+                        ParameterName = "@WebURL",
                         DataType = DbType.String,
                         Value = vendor.VendorWeburl
                     }
@@ -81,6 +82,49 @@ namespace Realta.Persistence.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<PagedList<Vendor>> GetVendorPage(VendorParameters vendorParameters)
+        {
+
+            SqlCommandModel model = new SqlCommandModel()
+            {
+                CommandText = @"Select 
+                    vendor_entity_id AS VendorEntityId, 
+                    vendor_name AS VendorName, 
+                    vendor_active AS VendorActive, 
+                    vendor_priority AS VendorPriority, 
+                    vendor_register_date AS VendorRegisterDate, 
+                    vendor_weburl AS VendorWeburl,
+                    vendor_modified_date AS VendorModifiedDate 
+                    From purchasing.vendor
+					ORDER BY VendorEntityId"
+                ,
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[] {
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@pageNo",
+                        DataType = DbType.Int32,
+                        Value = vendorParameters.PageNumber
+                    },
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@pageSize",
+                        DataType = DbType.Int32,
+                        Value = vendorParameters.PageSize
+                    }
+                }
+            };
+            var  dataSet = await GetAllAsync<Vendor>(model);
+
+            if (vendorParameters.Keyword != null)
+            {
+                string decodedKeyword = Uri.UnescapeDataString(vendorParameters.Keyword);
+                dataSet = dataSet.Where(p =>
+                    p.VendorName.ToLower().Contains(decodedKeyword.ToLower())  );
+            }
+            var totalRows = dataSet.Count();
+
+            return PagedList<Vendor>.ToPagedList(dataSet.ToList(), vendorParameters.PageNumber, vendorParameters.PageSize);
+        }
+
         public Vendor FindVendorById(int id)
         {
             SqlCommandModel model = new SqlCommandModel()
@@ -108,7 +152,7 @@ namespace Realta.Persistence.Repositories
         
     }
 
-        public async Task<IEnumerable<Vendor>> GetVendorPaging(VendorParameters vendorParameters)
+        public async Task<PagedList<Vendor>> GetVendorPaging(VendorParameters vendorParameters )
         {
 
             SqlCommandModel model = new SqlCommandModel()
@@ -126,44 +170,26 @@ namespace Realta.Persistence.Repositories
                         ,
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
-                            ParameterName = "@pageNo",
-                            DataType = DbType.Int32,
-                            Value = vendorParameters.PageNumber
-                        },
-                     new SqlCommandParameterModel() {
-                            ParameterName = "@pageSize",
-                            DataType = DbType.Int32,
-                            Value = vendorParameters.PageSize
-                        }
                 }
             };
             var  dataSet = await GetAllAsync<Vendor>(model);
 
-            if (vendorParameters.Keyword != null)
-            {
-                string decodedKeyword = Uri.UnescapeDataString(vendorParameters.Keyword);
-                dataSet = dataSet.Where(p =>
-                    p.VendorName.ToLower().Contains(decodedKeyword.ToLower())  );
-            }
-            var totalRows = dataSet.Count();
+            var vendorSearch = dataSet.AsQueryable()
+                .Search(vendorParameters.Keyword)
+                .Sort(vendorParameters.OrderBy);
 
-            return PagedList<Vendor>.ToPagedList(dataSet.ToList(), vendorParameters.PageNumber, vendorParameters.PageSize);
+            return PagedList<Vendor>.ToPagedList(vendorSearch.ToList(), vendorParameters.PageNumber, vendorParameters.PageSize);
+            //return new PagedList<Vendor>(vendorSearch.ToList(),totalRows, vendorParameters.PageNumber, vendorParameters.PageSize);
         }
 
         public void Insert(Vendor vendor)
         {
             SqlCommandModel model = new SqlCommandModel()
             {
-                CommandText = "INSERT INTO purchasing.vendor (vendor_entity_id, vendor_name, vendor_active, vendor_priority, vendor_weburl) " +
-                "VALUES (@vendor_entity_id, @vendor_name, @vendor_active, @vendor_priority, @vendor_weburl);",
+                CommandText = "INSERT INTO purchasing.vendor (vendor_name, vendor_active, vendor_priority, vendor_weburl) " +
+                "VALUES (@vendor_name, @vendor_active, @vendor_priority, @vendor_weburl);",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
-                    new SqlCommandParameterModel() {
-                        ParameterName = "@vendor_entity_id",
-                        DataType = DbType.Int32,
-                        Value = vendor.VendorEntityId
-                    },
                     new SqlCommandParameterModel() {
                         ParameterName = "@vendor_name",
                         DataType = DbType.String,
@@ -208,6 +234,60 @@ namespace Realta.Persistence.Repositories
 
             _adoContext.ExecuteNonQuery(model);
             _adoContext.Dispose();
+        }
+
+        public Vendor FindHeaderVendorById(int id)
+        {
+            SqlCommandModel model = new SqlCommandModel()
+            {
+                CommandText = @"select 
+                                vendor_entity_id VendorEntityId,
+                                vendor_name VendorName
+                                from purchasing.vendor
+                                where vendor_entity_id = @Id;",
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[] {
+                    new SqlCommandParameterModel() {
+                        ParameterName = "@Id",
+                        DataType = DbType.Int32,
+                        Value = id
+                    }
+                }
+            };
+            var dataSet = FindByCondition<Vendor>(model);
+            Vendor? item = dataSet.Current;
+
+            while (dataSet.MoveNext())
+            {
+                item = dataSet.Current;
+            }
+
+            return item;
+
+        }
+
+        public async Task<IEnumerable<Vendor>> FindHeaderVendor()
+        {
+            SqlCommandModel model = new SqlCommandModel()
+            {
+                CommandText = @"Select 
+                    vendor_entity_id AS VendorEntityId, 
+                    vendor_name AS VendorName 
+                    From purchasing.vendor
+					ORDER BY VendorName"
+    ,
+                CommandType = CommandType.Text,
+                CommandParameters = new SqlCommandParameterModel[] {
+                }
+            };
+            IAsyncEnumerator<Vendor> dataSet = FindAllAsync<Vendor>(model);
+
+            var result = new List<Vendor>();
+            while (await dataSet.MoveNextAsync())
+            {
+                result.Add(dataSet.Current);
+            }
+            return result;
         }
     }
 }

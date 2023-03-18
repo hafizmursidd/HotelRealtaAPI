@@ -33,32 +33,34 @@ namespace Realta.WebAPI.Controllers
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(result.MetaData));
 
-            return Ok(new 
-            { 
-                status = "Success",
-                message = "Success to fetch data.",
-                data = result
-            });
+            // return Ok(new 
+            // { 
+            //     status = "Success",
+            //     message = "Success to fetch data.",
+            //     data = result
+            // });
+            
+            return Ok(result);
         }
 
         // GET api/<PurchaseOrderController>/PO-20211231-001
         [HttpGet("{poNumber}")]
-        public IActionResult GetByPo(string poNumber)
+        public async Task<IActionResult> GetByPo(string poNumber, [FromQuery] PurchaseOrderDetailParameters param)
         {
-            var result = _repositoryManager.PurchaseOrderRepository.FindAllDet(poNumber);
+            // var result = _repositoryManager.PurchaseOrderRepository.FindAllDet(poNumber);
+            var result = await _repositoryManager.PurchaseOrderRepository.GetAllDetAsync(poNumber, param);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(result.MetaData));
+            return Ok(result);
+        }
+        
+        // GET api/<PurchaseOrderController>/PO-20211231-001
+        [HttpGet("header/{poNumber}")]
+        public IActionResult GetHeaderByPo(string poNumber)
+        {
+            // var result = _repositoryManager.PurchaseOrderRepository.FindAllDet(poNumber);
+            var result = _repositoryManager.PurchaseOrderRepository.FindByPo(poNumber);
+            return Ok(result);
 
-            if (result.PoheNumber == null)
-            {
-                _logger.LogError($"POD with id {poNumber} not found");
-                return NotFound();
-            }
-
-            return Ok(new
-            {
-                status = "Success",
-                message = "Success to fetch data.",
-                data = result
-            });
         }
 
         // POST api/<PurchaseOrderController>
@@ -106,7 +108,7 @@ namespace Realta.WebAPI.Controllers
             });
         }
 
-        // DELETE api/<PurchaseOrderController>/status/PO-20230222-001
+        // PUT api/<PurchaseOrderController>/status/PO-20230222-001
         [HttpPut("status/{poNumber}")]
         public IActionResult UpdateStatus(string poNumber, [FromBody] StatusUpdateDto dto)
         {
@@ -170,7 +172,7 @@ namespace Realta.WebAPI.Controllers
         }
 
         // DELETE api/<PurchaseOrderController>/detail/5
-        [HttpDelete("detail/{id}")]
+        [HttpDelete("detail/{id:int}")]
         public IActionResult DeleteDetail(int? id)
         {
             //1. prevent POHDTO from null

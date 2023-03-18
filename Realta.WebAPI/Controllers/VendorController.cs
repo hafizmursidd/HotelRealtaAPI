@@ -6,6 +6,7 @@ using Realta.Domain.Entities;
 using Realta.Domain.RequestFeatures;
 using Realta.Services.Abstraction;
 using System.Numerics;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -66,15 +67,56 @@ namespace Realta.WebAPI.Controllers
 
         }
 
+        [HttpGet("header")]
+        public async Task<IActionResult> GetAllVendorHeader()
+        {
+            var vendor = await _repositoryManager.VendorRepository.FindHeaderVendor();
+
+            if (vendor == null)
+            {
+                _logger.LogError("Object  sent from client is null");
+                return BadRequest($"Object with is not found");
+            }
+            var vendorDto = vendor.Select(v => new VendorHeaderDto
+            {
+                VendorEntityId = v.VendorEntityId,
+                VendorName = v.VendorName
+            });
+    
+            return Ok(vendorDto);
+
+        }
+        [HttpGet("header/{id}")]
+        public IActionResult VendorHeader(int id)
+        {
+            var vendor = _repositoryManager.VendorRepository.FindHeaderVendorById(id);
+
+            if (vendor == null)
+            {
+                _logger.LogError("Object  sent from client is null");
+                return BadRequest($"Object with id {id} is not found");
+            }
+            var vendorDto = new VendorHeaderDto
+            {
+                VendorEntityId = vendor.VendorEntityId,
+                VendorName = vendor.VendorName
+            };
+
+            return Ok(vendorDto);
+
+        }
+
         [HttpGet("paging")]
         public async Task<IActionResult> GetVendorPaging([FromQuery] VendorParameters vendorParameters)
         {
             try
             {
-            var products = await _repositoryManager.VendorRepository.GetVendorPaging(vendorParameters);
-            return Ok(products);
+                var vendor = await _repositoryManager.VendorRepository.GetVendorPaging(vendorParameters);
 
-            }
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(vendor.MetaData));
+                return Ok(vendor);
+
+            }   
             catch (Exception)
             {
 
@@ -105,7 +147,8 @@ namespace Realta.WebAPI.Controllers
             //post to database
             _repositoryManager.VendorRepository.Insert(vendor);
             //Redirect
-            return CreatedAtRoute("GetVendor", new { id = vendorDto.VendorEntityId }, vendorDto);
+            //return CreatedAtRoute("GetVendor", new { id = vendorDto.VendorEntityId }, vendorDto);
+            return Ok("Create Success");
         }
 
         // PUT api/<VendorController>/5
@@ -139,7 +182,7 @@ namespace Realta.WebAPI.Controllers
             _repositoryManager.VendorRepository.Edit(vendor);
 
             //Redirect
-            return CreatedAtRoute("GetVendor", new { id }, result );
+            return CreatedAtRoute("GetVendor", new { id }, vendor );
         }
 
         // DELETE api/<VendorController>/5
