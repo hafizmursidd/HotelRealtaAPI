@@ -27,11 +27,10 @@ namespace Realta.Persistence.Repositories
                 CommandText = "SELECT stod_id as StodId, stock_name as StockName, " +
                "stod_barcode_number as StodBarcodeNumber, stod_status as StodStatus, stod_notes as StodNotes, " +
                "fa.faci_room_number as FaciRoomNumber, po.pohe_number as PoheNumber FROM Purchasing.stock_detail sd " +
-               "JOIN Purchasing.purchase_order_header po ON sd.stod_pohe_id = po.pohe_id " +
-               "JOIN Hotel.facilities fa ON sd.stod_faci_id = fa.faci_id " +
-               "JOIN Purchasing.stocks s ON s.stock_id = sd.stod_stock_id " +
-               "WHERE sd.stod_stock_id=@stodStockId ORDER BY sd.stod_id " +
-               "OFFSET @pageNo ROWS FETCH NEXT @pageSize ROWS ONLY",
+               "LEFT JOIN Purchasing.purchase_order_header po ON sd.stod_pohe_id = po.pohe_id " +
+               "LEFT JOIN Hotel.facilities fa ON sd.stod_faci_id = fa.faci_id " +
+               "LEFT JOIN Purchasing.stocks s ON s.stock_id = sd.stod_stock_id " +
+               "WHERE sd.stod_stock_id=@stodStockId ORDER BY sd.stod_id;",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
                     new SqlCommandParameterModel() {
@@ -39,16 +38,6 @@ namespace Realta.Persistence.Repositories
                         DataType = DbType.Int32,
                         Value = stockDetailParameters.StockId
                     },
-                    new SqlCommandParameterModel() {
-                        ParameterName = "@pageNo",
-                        DataType = DbType.Int32,
-                        Value = stockDetailParameters.PageNumber
-                    },
-                    new SqlCommandParameterModel() {
-                        ParameterName = "@pageSize",
-                        DataType = DbType.Int32,
-                        Value = stockDetailParameters.PageSize
-                    }
                 }
             };
 
@@ -65,9 +54,9 @@ namespace Realta.Persistence.Repositories
                CommandText = "SELECT stod_id as StodId, stock_name as StockName, " +
                "stod_barcode_number as StodBarcodeNumber, stod_status as StodStatus, stod_notes as StodNotes, " +
                "fa.faci_room_number as FaciRoomNumber, po.pohe_number as PoheNumber FROM Purchasing.stock_detail sd " +
-               "JOIN Purchasing.purchase_order_header po ON sd.stod_pohe_id = po.pohe_id " +
-               "JOIN Hotel.facilities fa ON sd.stod_faci_id = fa.faci_id " +
-               "Join Purchasing.stocks s on s.stock_id = sd.stod_stock_id " +
+               "LEFT JOIN Purchasing.purchase_order_header po ON sd.stod_pohe_id = po.pohe_id " +
+               "LEFT JOIN Hotel.facilities fa ON sd.stod_faci_id = fa.faci_id " +
+               "LEFT JOIN Purchasing.stocks s on s.stock_id = sd.stod_stock_id " +
                "where sd.stod_stock_id=@stodStockId;",
                 CommandType = CommandType.Text,
                 CommandParameters = new SqlCommandParameterModel[] {
@@ -136,17 +125,17 @@ namespace Realta.Persistence.Repositories
                     },
                    new SqlCommandParameterModel() {
                         ParameterName = "@PodeQyt",
-                        DataType = DbType.String,
+                        DataType = DbType.Int32,
                         Value = purchaseOrderDetail.PodeOrderQty
                     },
                    new SqlCommandParameterModel() {
                         ParameterName = "@PodeReceivedQty",
-                        DataType = DbType.String,
+                        DataType = DbType.Int32,
                         Value = purchaseOrderDetail.PodeReceivedQty
                     },
                    new SqlCommandParameterModel() {
                         ParameterName = "@PodeRejectQty",
-                        DataType = DbType.Int16,
+                        DataType = DbType.Int32,
                         Value = purchaseOrderDetail.PodeRejectedQty
                     }
                 }
