@@ -21,7 +21,7 @@ namespace Realta.Contract.Models
     public class QtyUpdateDto
     {        
         public int PodeId { get; set; }
-        public string StockName { get; set; }
+        public string? StockName { get; set; }
         public short PodeOrderQty { get; set; }
         public decimal PodeReceivedQty { get; set; } = 0;
         public decimal PodeRejectedQty { get; set; } = 0;
