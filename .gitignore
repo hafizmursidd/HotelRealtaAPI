@@ -1,18 +1,13 @@
-.idea
-.vs
-.vscode
+# direktori
+.idea/
+.vs/
+.vscode/
+
+# semua file dalam direktori .idea, .vs, .vscode
 .idea/*
 .vs/*
 .vscode/*
-Realta.Contract/bin
-Realta.Contract/obj
-Realta.Domain/bin
-Realta.Domain/obj
-Realta.Persistence/bin
-Realta.Persistence/obj
-Realta.Services/bin
-Realta.Services/obj
-Realta.Services.Abstraction/bin
-Realta.Services.Abstraction/obj
-Realta.WebAPI/bin
-Realta.WebAPI/obj
+
+# direktori bin dan obj di setiap proyek
+**/bin/
+**/obj/
