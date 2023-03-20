@@ -9,7 +9,7 @@ namespace Realta.WebAPI.Extensions
     public static class ServiceExtensions
     {
         public static void ConfigureCors(this IServiceCollection services) =>
-           services.AddCors(options =>
+           services.AddCors(options => 
            {
                options.AddPolicy("CorsPolicy", builder =>
                    builder.AllowAnyOrigin()
@@ -20,13 +20,11 @@ namespace Realta.WebAPI.Extensions
 
         // add IIS configure options deploy to IIS
         public static void ConfigureIISIntegration(this IServiceCollection services) =>
-            services.Configure<IISOptions>(options =>
-            {
-            });
+        services.Configure<IISOptions>(options => {});
 
         //create a service once per request
         public static void ConfigureLoggerService(this IServiceCollection services) =>
-            services.AddScoped<ILoggerManager, LoggerManager>();
+        services.AddScoped<ILoggerManager, LoggerManager>();
 
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
         services.AddScoped<IRepositoryManager, RepositoryManager>();
