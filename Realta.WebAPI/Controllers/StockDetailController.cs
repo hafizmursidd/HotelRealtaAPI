@@ -71,7 +71,7 @@ namespace Realta.WebAPI.Controllers
         }
 
         // GET api/<StockDetailController>/5
-        [HttpGet("/detail/{id}", Name = "GetStockDetail")]
+        [HttpGet("detail/{id}", Name = "GetStockDetail")]
         public IActionResult FindStockDetailById(int id)
         {
             var stockDetail = _repositoryManager.StockDetailRepository.FindStockDetailById(id);
@@ -89,6 +89,7 @@ namespace Realta.WebAPI.Controllers
                 StodStatus=stockDetail.StodStatus,
                 StodNotes=stockDetail.StodNotes,
                 FaciRoomNumber = stockDetail.FaciRoomNumber,
+                StodFaciId = stockDetail.StodFaciId,
                 StodPoNumber=stockDetail.PoheNumber
             };
 
