@@ -56,7 +56,6 @@ namespace Realta.WebAPI.Controllers
             {
                 StockId = stock.StockId,
                 StockName = stock.StockName,
-                StockDescription = stock.StockDesc,
                 StockQuantity= stock.StockQty,
                 StockReorderPoint= stock.StockReorderPoint,
                 StockUsed= stock.StockUsed,
@@ -83,7 +82,6 @@ namespace Realta.WebAPI.Controllers
             var stock = new Stocks 
             { 
                 StockName = stocksDto.StockName,
-                StockDesc = stocksDto.StockDescription,
                 StockReorderPoint = stocksDto.StockReorderPoint,
                 StockQty = stocksDto.StockQuantity,
                 StockUsed = stocksDto.StockUsed,

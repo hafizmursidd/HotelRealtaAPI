@@ -19,9 +19,9 @@ namespace Realta.Persistence.Repositories
             SqlCommandModel model = new SqlCommandModel()
             {
                 CommandText = "UPDATE purchasing.stocks SET " +
-                "stock_name=@stockName, stock_description=@stockDesc, " +
+                "stock_name=@stockName, " +
                 "stock_reorder_point=@stockRP, stock_quantity=@stockQty, " +
-                "stock_used=@stockUsed, stock_scrap=@stockScrap" +
+                "stock_used=@stockUsed, stock_scrap=@stockScrap, " +
                 "stock_size=@stockSize, stock_color=@stockColor, " +
                 "stock_modified_date=@stockModifiedDate " +
                 "WHERE stock_id=@stockId;",
@@ -29,18 +29,13 @@ namespace Realta.Persistence.Repositories
                 CommandParameters = new SqlCommandParameterModel[] {
                     new SqlCommandParameterModel() {
                         ParameterName = "@stockId",
-                        DataType = DbType.Int32,
+                        DataType = DbType.String,
                         Value = stocks.StockId
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@stockName",
                         DataType = DbType.String,
                         Value = stocks.StockName
-                    },
-                    new SqlCommandParameterModel() {
-                        ParameterName = "@stockDesc",
-                        DataType = DbType.String,
-                        Value = stocks.StockDesc
                     },
                     new SqlCommandParameterModel() {
                         ParameterName = "@stockRP",
