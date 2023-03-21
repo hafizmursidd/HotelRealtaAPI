@@ -17,12 +17,14 @@ namespace Realta.Contract.Models
         public string? StodNotes { get; set; }
 
         public string? FaciRoomNumber { get; set; }
+        public int? StodFaciId { get; set; }
 
         public string? StodPoNumber { get; set; }
     }
 
     public class UpdateStatusStockDetailDto
     {
+        public int? StodId { get; set; }
         public string? StodStatus { get; set; }
         public string? StodNotes { get; set; }
 

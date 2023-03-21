@@ -81,7 +81,7 @@ namespace Realta.Persistence.Repositories
         {
             SqlCommandModel model = new SqlCommandModel()
             {
-                CommandText = "SELECT stod_id as StodId, stock_name as StockName, " +
+                CommandText = "SELECT stod_id as StodId, stock_name as StockName, stod_faci_id as StodFaciId, " +
                "stod_barcode_number as StodBarcodeNumber, stod_status as StodStatus, stod_notes as StodNotes, " +
                "fa.faci_room_number as FaciRoomNumber, po.pohe_number as PoheNumber FROM Purchasing.stock_detail sd " +
                "JOIN Purchasing.purchase_order_header po ON sd.stod_pohe_id = po.pohe_id " +

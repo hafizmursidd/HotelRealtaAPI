@@ -89,6 +89,7 @@ namespace Realta.WebAPI.Controllers
                 StodStatus=stockDetail.StodStatus,
                 StodNotes=stockDetail.StodNotes,
                 FaciRoomNumber = stockDetail.FaciRoomNumber,
+                StodFaciId = stockDetail.StodFaciId,
                 StodPoNumber=stockDetail.PoheNumber
             };
 
